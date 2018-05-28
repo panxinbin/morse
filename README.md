@@ -21,7 +21,7 @@ Here's an example on how it works:
 using namespace std;
 
 int main(void) {
-	std::string toConvert = ".... . .-.. .-.. --- .-- --- .-. .-.. -..";
+	string toConvert = ".... . .-.. .-.. --- .-- --- .-. .-.. -..";
 
 	morse m(toConvert);
 	m.morse_to_ascii();//It prints the converted value	
@@ -38,7 +38,7 @@ int main(void) {
 using namespace std;
 
 int main(void) {
-	std::string toConvert = "hello world";
+	string toConvert = "hello world";
 
 	morse m(toConvert);
 	m.ascii_to_morse();//It prints the converted value
