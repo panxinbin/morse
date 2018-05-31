@@ -5,4 +5,5 @@ packages:
         - cmake
 script:
         mkdir cmake-build-debug && cd cmake-build-debug
-        cmake .. && make
+        cmake .. 
+        make
