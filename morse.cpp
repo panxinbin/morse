@@ -6,7 +6,10 @@
 morse::morse(std::string var) {
     this->user_input = var;
 }
-
+morse::morse(std::string finput, std::string foutput) {
+    this->finput = finput;
+    this->foutput = foutput;
+}
 std::string morse::spacer(std::string toConvert) {
     std::string convertedString;
     for(auto x : toConvert) {
@@ -16,8 +19,20 @@ std::string morse::spacer(std::string toConvert) {
     return convertedString;
 }
 
-void morse::morse_to_ascii() {
+std::string morse::lower(std::string toConvert) {
+    for(auto &c : toConvert)
+        c = tolower(c);
+    return toConvert;
+}
+void morse::cat(std::string file) {
+   std::ifstream out(file, std::ios::in);
+   std::stringstream ss;
+   ss << out.rdbuf();
+   std::cout << ss.rdbuf() << std::endl;
+}
+std::string morse::morse_to_ascii() {
     cw alphabet;
+    std::string output; //The result
     //Letters
     alphabet.code.push_back(".-");//A
     alphabet.code.push_back("-...");//B
@@ -98,25 +113,52 @@ void morse::morse_to_ascii() {
     alphabet.word.push_back("0");
 
     //Specials
-    alphabet.code.push_back("  ");//Space
+    alphabet.code.push_back("--..--");//,
+    alphabet.code.push_back("-..-.");// /
+    alphabet.code.push_back(".-.-.-");//.
+    alphabet.code.push_back("-.-.-.");//;
+    alphabet.code.push_back("---...");//:
+    alphabet.code.push_back("-.--.");//(
+    alphabet.code.push_back("-.--.-");//)
+    alphabet.code.push_back(".--.-.");//@
+    alphabet.code.push_back("···-··-");//=
+    alphabet.code.push_back(".----.");//'
+    alphabet.code.push_back(".-.-.");//+
+    alphabet.code.push_back("-....-");//-
+    alphabet.code.push_back("..--.-");//_
 
-    alphabet.word.push_back(" ");
+
+    alphabet.word.push_back(",");
+    alphabet.word.push_back("/");
+    alphabet.word.push_back(".");
+    alphabet.word.push_back(";");
+    alphabet.word.push_back(":");
+    alphabet.word.push_back("(");
+    alphabet.word.push_back(")");
+    alphabet.word.push_back("@");
+    alphabet.word.push_back("=");
+    alphabet.word.push_back("'");
+    alphabet.word.push_back("+");
+    alphabet.word.push_back("-");
+    alphabet.word.push_back("_");
 
     std::istringstream iss(user_input);
-    std::cout << "Decoded value: ";//Comment this if you use it as a library
     while(iss >> word) {
         for(int i = 0; i < alphabet.code.size(); ++i) {
-            if(word == alphabet.code.at(i)) {
-                std::cout << alphabet.word.at(i);
-            }
+            if(word == alphabet.code.at(i))
+                output += alphabet.word.at(i);
         }
     }
-    std::cout << "\n";
+    std::cout << '\n';
+    return output;
 }
-void morse::ascii_to_morse() {
+std::string morse::ascii_to_morse() {
     //Add space between each character
     user_input = spacer(user_input);
+    //minimize each character
+    user_input = lower(user_input);
     cw alphabet;
+    std::string output; //The result
     //Letters
     alphabet.code.push_back(".-");//A
     alphabet.code.push_back("-...");//B
@@ -197,18 +239,67 @@ void morse::ascii_to_morse() {
     alphabet.word.push_back("0");
 
     //Specials
-    alphabet.code.push_back("  ");//Space
+    alphabet.code.push_back("--..--");//,
+    alphabet.code.push_back("-..-.");// /
+    alphabet.code.push_back(".-.-.-");//.
+    alphabet.code.push_back("-.-.-.");//;
+    alphabet.code.push_back("---...");//:
+    alphabet.code.push_back("-.--.");//(
+    alphabet.code.push_back("-.--.-");//)
+    alphabet.code.push_back(".--.-.");//@
+    alphabet.code.push_back("···-··-");//=
+    alphabet.code.push_back(".----.");//'
+    alphabet.code.push_back(".-.-.");//+
+    alphabet.code.push_back("-....-");//-
+    alphabet.code.push_back("..--.-");//_
 
-    alphabet.word.push_back(" ");
+
+    alphabet.word.push_back(",");
+    alphabet.word.push_back("/");
+    alphabet.word.push_back(".");
+    alphabet.word.push_back(";");
+    alphabet.word.push_back(":");
+    alphabet.word.push_back("(");
+    alphabet.word.push_back(")");
+    alphabet.word.push_back("@");
+    alphabet.word.push_back("=");
+    alphabet.word.push_back("'");
+    alphabet.word.push_back("+");
+    alphabet.word.push_back("-");
+    alphabet.word.push_back("_");
 
     std::istringstream iss(user_input);
-    std::cout << "Encoded value: ";//Comment this if you use it as a library
     while(iss >> word) {
         for(int i = 0; i < alphabet.word.size(); ++i) {
-            if(word == alphabet.word.at(i)) {
-                std::cout << alphabet.code.at(i);
-            }
-        } std::cout << " ";
+            if(word == alphabet.word.at(i))
+                output += alphabet.code.at(i);
+        } output += ' ';
     }
     std::cout << "\n";
+    return output;
+}
+void morse::file_converter(int operation) {
+    std::string output;
+    std::stringstream buffer;
+
+    std::ifstream fin(finput, std::ios::in); //Open input file
+    buffer << fin.rdbuf();//Put the content of the file into buffer
+    this->user_input = buffer.str(); //Move the content of the buffer into user_input
+
+    if(operation == 1) //The encoder
+        output = ascii_to_morse();
+    else if(operation == 2)//The decoder
+        output = morse_to_ascii();
+    else
+        return;
+
+    std::ofstream fout(foutput, std::ios::out); //Open output file
+    fout << output; //Write the result(output) into fout stream
+    //Close the two files
+    fin.close();
+    fout.close();
+    //Print the result file
+    std::cout << "New file content: ";
+    //Print the result file
+    cat(foutput);
 }
