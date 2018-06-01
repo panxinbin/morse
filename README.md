@@ -24,9 +24,11 @@ using namespace std;
 
 int main(void) {
 	string toConvert = ".... . .-.. .-.. --- .-- --- .-. .-.. -..";
+	string output;
 
 	morse m(toConvert);
-	m.morse_to_ascii();//It prints the converted value	
+	output = m.morse_to_ascii();//It prints the converted value	
+	cout << "The converted string is: " << output;
 
 	return 0;
 }
@@ -41,9 +43,11 @@ using namespace std;
 
 int main(void) {
 	string toConvert = "hello world";
+	string output;
 
 	morse m(toConvert);
-	m.ascii_to_morse();//It prints the converted value
+	output = m.ascii_to_morse();//It prints the converted value
+	cout << "The converted string is: " << output;
 
 	return 0;
 }
