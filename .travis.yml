@@ -1,6 +1,12 @@
 sudo: required
 language: cpp
 
+before_install:
+        - sudo add-apt-repository --yes ppa:beineri/opt-qt551-trusty
+        - sudo apt-get update -qq
+install:
+        - sudo apt install qt55[PACKAGE] -y
+
 packages:
         - cmake
 script:
