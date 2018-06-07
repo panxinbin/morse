@@ -80,7 +80,7 @@ int main(void) {
 }
 ```  
 *The file converter method OVERRIDE the content of the file, bring attention when you use it*
-# Compilation
+# Building
 *morse* does not use any external library, in order to compile it you have to install [cmake](https://cmake.org/download).  
 It should works on all operating systems.  
 # Special character supported
