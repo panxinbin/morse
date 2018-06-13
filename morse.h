@@ -34,3 +34,4 @@ private:
     std::string foutput; //Destination file
 };
 #endif //MORSE_MORSE_H
+

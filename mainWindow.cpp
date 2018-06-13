@@ -6,49 +6,55 @@
 
 mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::mainWindowClass) {
     ui->setupUi(this);
-    setFixedSize(474, 546);
-    ui->txtEncEncode->setReadOnly(true);
-    ui->txtDecDecode->setReadOnly(true);
-}
-void mainWindow::on_btnEncode_clicked() {
-    //Get the data and convert it to std::string
-    this->user_input = ui->txtPlainEncode->toPlainText();
-    std::string converted = this->user_input.toUtf8().constData();
-    //Encode the text
-    morse enc(converted);
-    this->processed_output = enc.ascii_to_morse();
-    //Return the result to the GUI
-    ui->txtEncEncode->setText(QString::fromStdString(this->processed_output));
-}
-void mainWindow::on_btnCopyToClipboard_clicked() {
-    //Init clipboard object
-    QClipboard *clipboard = QApplication::clipboard();
-    //Clear the clipboard
-    clipboard->clear();
-    //Copy the text from txtEncEncode to clipboard
-    clipboard->setText(ui->txtEncEncode->toPlainText());
-}
-void mainWindow::on_btnDecode_clicked() {
-    //Get the data and convert it to std::string
-    this->user_input = ui->txtPlainDecode->toPlainText();
-    std::string converted = this->user_input.toUtf8().constData();
-    //Decode the text
-    morse dec(converted);
-    this->processed_output = dec.morse_to_ascii();
-    //Return the result to the GUI
-    ui->txtDecDecode->setText(QString::fromStdString(this->processed_output));
-}
-void mainWindow::on_btnCopy_clicked() {
-    //Init clipboard object
-    QClipboard *clipboard = QApplication::clipboard();
-    //Clear the clipboard
-    clipboard->clear();
-    //Copy the text from txtEncEncode to clipboard
-    clipboard->setText(ui->txtDecDecode->toPlainText());
+    setFixedSize(474, 471);
+    QObject::connect(ui->txtPlainEncode, &QTextEdit::textChanged, this, &mainWindow::encoder);
+    QObject::connect(ui->txtDecDecode, &QTextEdit::textChanged, this, &mainWindow::decoder);
 }
 void mainWindow::on_actionAbout_triggered() {
     aboutWin = new about();
     aboutWin->show();
+}
+void mainWindow::on_actionEncode_triggered() {
+    // Open the input file
+    QString inputFile = QFileDialog::getOpenFileName(this,
+            tr("Open file to encode"), "",
+            tr("Text Files (*.txt);; All Files (*)"));
+    // Open the output file
+    QString outputFile = QFileDialog::getSaveFileName(this,
+            tr("Save file as"), "",
+            tr("Text Files (*.txt);; All Files (*)"));
+    morse conv(inputFile.toStdString(), outputFile.toStdString());
+    conv.file_converter(1);
+    //Print an output message
+    QMessageBox msg;
+    msg.information(0, "OK", "All done!");
+}
+void mainWindow::on_actionDecode_triggered() {
+    // Open the input file
+    QString inputFile = QFileDialog::getOpenFileName(this,
+            tr("Open file to decode"), "",
+            tr("Text Files (*.txt);; All Files (*)"));
+    // Open the output file
+    QString outputFile = QFileDialog::getSaveFileName(this,
+            tr("Save file as"), "",
+            tr("Text Files(*.txt);; All Files (*)"));
+    morse conv(inputFile.toStdString(), outputFile.toStdString());
+    conv.file_converter(2);
+    //Print an output message
+    QMessageBox msg;
+    msg.information(0, "OK", "All done!");
+}
+void mainWindow::encoder() {
+    std::string input = ui->txtPlainEncode->toPlainText().toStdString(), encoded;
+    morse encoder(input);
+    encoded = encoder.ascii_to_morse();
+    ui->txtEncEncode->setText(QString::fromStdString(encoded));
+}
+void mainWindow::decoder() {
+    std::string input = ui->txtDecDecode->toPlainText().toStdString(), decoded;
+    morse decoder(input);
+    decoded = decoder.morse_to_ascii();
+    ui->txtPlainDecode->setText(QString::fromStdString(decoded));
 }
 void mainWindow::on_actionExit_triggered() { QApplication::exit(0); }
 mainWindow::~mainWindow() { delete ui; }

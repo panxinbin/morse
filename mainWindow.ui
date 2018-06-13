@@ -7,58 +7,35 @@
     <x>0</x>
     <y>0</y>
     <width>474</width>
-    <height>546</height>
+    <height>471</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>morse - Qt Editon</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTabWidget" name="decoderTab">
+   <widget class="QTabWidget" name="tbDecoder">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>461</width>
-      <height>511</height>
+      <width>451</width>
+      <height>431</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="encoderTab">
+    <widget class="QWidget" name="tbEncoder">
      <attribute name="title">
       <string>Encoder</string>
      </attribute>
-     <widget class="QTextEdit" name="txtPlainEncode">
+     <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>431</width>
-        <height>161</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnEncode">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>180</y>
-        <width>431</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Encode</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lblEncode">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>220</y>
-        <width>71</width>
+        <x>160</x>
+        <y>0</y>
+        <width>131</width>
         <height>19</height>
        </rect>
       </property>
@@ -69,30 +46,46 @@
        </font>
       </property>
       <property name="text">
-       <string>Result:</string>
+       <string>Insert Plain Text:</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="txtPlainEncode">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>431</width>
+        <height>161</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>190</y>
+        <width>131</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Encoded Value:</string>
       </property>
      </widget>
      <widget class="QTextEdit" name="txtEncEncode">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>240</y>
+        <y>210</y>
         <width>431</width>
         <height>171</height>
        </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnCopyToClipboard">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>430</y>
-        <width>431</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Copy</string>
       </property>
      </widget>
     </widget>
@@ -100,58 +93,12 @@
      <attribute name="title">
       <string>Decoder</string>
      </attribute>
-     <widget class="QPushButton" name="btnDecode">
+     <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>180</y>
-        <width>431</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Decode</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnCopy">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>430</y>
-        <width>431</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Copy</string>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="txtDecDecode">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>240</y>
-        <width>431</width>
-        <height>171</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="txtPlainDecode">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>431</width>
-        <height>161</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lblDecode">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>220</y>
-        <width>71</width>
+        <x>160</x>
+        <y>0</y>
+        <width>131</width>
         <height>19</height>
        </rect>
       </property>
@@ -162,7 +109,46 @@
        </font>
       </property>
       <property name="text">
-       <string>Result:</string>
+       <string>Insert Morse Code:</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="txtDecDecode">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>431</width>
+        <height>161</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>190</y>
+        <width>131</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Decoded Value:</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="txtPlainDecode">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>210</y>
+        <width>431</width>
+        <height>171</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -179,7 +165,7 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>Help</string>
+     <string>File</string>
     </property>
     <widget class="QMenu" name="menuFrom_File">
      <property name="title">

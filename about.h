@@ -18,3 +18,4 @@ private:
 
 
 #endif //MORSEGUI_ABOUT_H
+
