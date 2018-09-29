@@ -7,6 +7,8 @@
 mainWindow::mainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::mainWindowClass) {
     ui->setupUi(this);
     setFixedSize(474, 471);
+    ui->txtEncEncode->setReadOnly(true);
+    ui->txtPlainDecode->setReadOnly(true);
     QObject::connect(ui->txtPlainEncode, &QTextEdit::textChanged, this, &mainWindow::encoder);
     QObject::connect(ui->txtDecDecode, &QTextEdit::textChanged, this, &mainWindow::decoder);
 }
