@@ -1,5 +1,3 @@
-
-26 lines (19 sloc) 398 Bytes
 language: cpp
 os: linux
 sudo: required
